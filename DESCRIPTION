@@ -1,0 +1,12 @@
+Package: lab4ab
+Type: Package
+Title: Linear regression
+Version: 1.0
+Date: 2017-09-15
+Authors@R: c(
+    person("De Biase", "Alessia", email = "alessia_debiase@libero.it", role = c("aut")),
+    person("Barakat", "Bruno", email = "barakatbruno@gmail.com", role = c("cre","aut")))
+Description: None yet
+Depends: R(>= 2.10) 
+License: GPL 
+RoxygenNote: 6.0.1
