@@ -22,7 +22,7 @@ linreg<-setRefClass("linreg",
                         p <- dim(data)[2]-2
                         df<- n-p
                         
-                        #res_var <- (t(res) %*% res)/df # residual variance
+                        res_var <- (t(res) %*% res)/df # residual variance
                         
                         #variance of the regression coefficients
                         reg_var <- (as.numeric(res_var) * solve((t(X) %*% X)))
@@ -41,7 +41,7 @@ linreg<-setRefClass("linreg",
                         return(res) #done
                       },
                       pred = function(){
-                        return(pred) #done
+                        return(fitted) #done
                         
                       },
                       coef=function(){

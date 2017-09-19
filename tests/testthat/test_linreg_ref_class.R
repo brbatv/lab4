@@ -12,9 +12,9 @@ square <- Polygon$new(sides = 4)
 
 test_that("lenreg rejects errounous input", {
   
-  expect_error(linreg_mod <- linreg$new(formula = Petal.Length~Sepdsal.Width+Sepal.Length, data=iris))
+  expect_error(linreg_mod <- linreg$new(formula = Petal.Length~Sepdsal.Width+Sepal.Length, data=iris)) #DONE
   
-  expect_error(linreg_mod <- linreg$new(formula = Petal.Length~Sepdsal.Width+Sepal.Length, data=irfsfdis))
+  expect_error(linreg_mod <- linreg$new(formula = Petal.Length~Sepdsal.Width+Sepal.Length, data=irfsfdis)) #DONE
   
 })
 
@@ -24,7 +24,7 @@ test_that("lenreg rejects errounous input", {
 
 test_that("class is correct", {
   
-  linreg_mod <- linreg$new(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+  linreg_mod <- linreg$new(Petal.Length~Sepal.Width+Sepal.Length, data=iris) #DONE
   
   
   
@@ -34,15 +34,15 @@ test_that("class is correct", {
 
 
 
-test_that("print() method works", {
+test_that("print() method works", { 
   
   linreg_mod <- linreg$new(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
   
   
   
-  expect_output(linreg_mod$print(),"linreg(formula = Petal.Length ~ Sepal.Width + Sepal.Length, data = iris)")  
+  expect_output(linreg_mod$print(),"linreg(formula = Petal.Length ~ Sepal.Width + Sepal.Length, data = iris)")  #ERR
   
-  expect_output(linreg_mod$print()," (Intercept)   Sepal.Width  Sepal.Length ")  
+  expect_output(linreg_mod$print()," (Intercept)   Sepal.Width  Sepal.Length ")  #ERR
   
 })
 
@@ -54,7 +54,7 @@ test_that("pred() method works", {
   
   
   
-  expect_equal(round(unname(linreg_mod$pred()[c(1,5,7)]),2), c(1.85, 1.53, 1.09))    
+  expect_equal(round(unname(linreg_mod$pred()[c(1,5,7)]),2), c(1.85, 1.53, 1.09))    #DONE
   
 })
 
@@ -66,7 +66,7 @@ test_that("resid() method works", {
   
   
   
-  expect_equal(round(unname(linreg_mod$resid()[c(7,13,27)]),2), c(0.31, -0.58, -0.20))
+  expect_equal(round(unname(linreg_mod$resid()[c(7,13,27)]),2), c(0.31, -0.58, -0.20)) #DONE
   
 })
 
@@ -78,7 +78,7 @@ test_that("coef() method works", {
   
   
   
-  expect_true(all(round(unname(linreg_mod$coef()),2) %in% c(-2.52, -1.34, 1.78)))
+  expect_true(all(round(unname(linreg_mod$coef()),2) %in% c(-2.52, -1.34, 1.78))) #DONE
   
 })
 
@@ -92,12 +92,12 @@ test_that("summary() method works", {
   
   
   
-  expect_output(linreg_mod$summary(), "\\(Intercept\\)( )*-2.5[0-9]*( )*0.5[0-9]*( )*-4.4[0-9]*( )*.*( )*\\*\\*\\*")  
+  expect_output(linreg_mod$summary(), "\\(Intercept\\)( )*-2.5[0-9]*( )*0.5[0-9]*( )*-4.4[0-9]*( )*.*( )*\\*\\*\\*")  #err
   
-  expect_output(linreg_mod$summary(), "Sepal.Width( )*-1.3[0-9]*( )*0.1[0-9]*( )*-10.9[0-9]*( )*.*( )*\\*\\*\\*")
+  expect_output(linreg_mod$summary(), "Sepal.Width( )*-1.3[0-9]*( )*0.1[0-9]*( )*-10.9[0-9]*( )*.*( )*\\*\\*\\*") #err
   
-  expect_output(linreg_mod$summary(), "Sepal.Length( )*1.7[0-9]*( )*0.0[0-9]*( )*27.5[0-9]*( )*.*( )*\\*\\*\\*")
+  expect_output(linreg_mod$summary(), "Sepal.Length( )*1.7[0-9]*( )*0.0[0-9]*( )*27.5[0-9]*( )*.*( )*\\*\\*\\*") #err
   
-  expect_output(linreg_mod$summary(), "Residual standard error: 0.6[0-9]* on 147 degrees of freedom")
+  expect_output(linreg_mod$summary(), "Residual standard error: 0.6[0-9]* on 147 degrees of freedom") #err
   
 })
