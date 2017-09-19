@@ -12,5 +12,10 @@ linreg<-function(formula,data){
   qr<-qr(X)
   beta_hat<-qr.coef(qr,Y)
   
+  
+  
+  ## RC class tryout 
+  linreg<-setRefClass("linreg", 
+  fields=list(beta_hat=""))
   return(beta)
 }
