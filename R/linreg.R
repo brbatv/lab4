@@ -22,7 +22,7 @@ linreg<-setRefClass("linreg",
                         p <- dim(data)[2]-2
                         df<- n-p
                         
-                        res_var <- (t(res) %*% res)/df # residual variance
+                        #res_var <- (t(res) %*% res)/df # residual variance
                         
                         #variance of the regression coefficients
                         reg_var <- (as.numeric(res_var) * solve((t(X) %*% X)))
@@ -65,10 +65,3 @@ linreg<-setRefClass("linreg",
                       
                     ))
 
-#dependent_variable_name<-all.vars(formula)[1]
-
-#Y<-data[[dependent_variable_name]] # vector of dependent variable
-#X<-model.matrix(formula,data) # matric of independent variables
-#qr<-qr(X)
-#print(formula)
-#beta_hat<<-qr.coef(qr,Y) # regression coefficients
