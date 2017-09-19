@@ -13,3 +13,4 @@ Description: None yet bro i love pancakes
 Depends: R(>= 2.10) 
 License: GPL 
 RoxygenNote: 6.0.1
+Suggests: testthat
