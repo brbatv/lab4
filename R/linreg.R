@@ -28,6 +28,11 @@ linreg<-function(formula,data){
   
   p_value <- pt(beta,df)
   
+  #first graph
+  plot(fitted_values,resids, ylab="Residuals",xlab="Fitted values of lm")
+  
+  
+  
   #f<-Petal.Length ~ Sepal.Width + Sepal.Length
   return(X)
 }
