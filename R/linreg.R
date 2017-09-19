@@ -16,6 +16,6 @@ linreg<-function(formula,data){
   
   ## RC class tryout 
   linreg<-setRefClass("linreg", 
-  fields=list(beta_hat=""))
+  fields=list(beta_hat="numeric",y_hat="numeric"))
   return(beta)
 }
