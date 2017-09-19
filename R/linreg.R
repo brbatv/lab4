@@ -1,4 +1,4 @@
-
+#'@export
 linreg<-function(formula,data){
   #ex : f<-Petal.Length ~ Sepal.Width + Sepal.Length
   
@@ -9,9 +9,9 @@ linreg<-function(formula,data){
   
   ## calculation using QR decomposition
   qr<-qr(X)
-  beta_hat<-qr.coef(qr,Y)
-  fitted<-qr.fitted(qr,Y)
-  res<-qr.resid(qr,Y)
+  beta_hat<-qr.coef(qr,Y) # regression coefficients
+  fitted<-qr.fitted(qr,Y) # fitted values
+  res<-qr.resid(qr,Y) # residuals
   
   #degree of freedom
   
@@ -33,10 +33,20 @@ linreg<-function(formula,data){
   
   #p-value ????
   
-  p_value <- pt(beta,df)
+  p_values <- pt(beta,df)
   
-  ## RC class tryout 
-  linreg<-setRefClass("linreg", 
-  fields=list(beta_hat="numeric",y_hat="numeric"))
   return(beta)
 }
+
+#'@exportClass linreg
+#'@export linreg
+#'@import methods
+
+linreg<-setRefClass("linreg", 
+                    fields=list(formula="formula",data="data.frame"),
+                    methods=list(
+                      resid = function(){
+                        return(123456)
+                      }
+                      
+                    ))
