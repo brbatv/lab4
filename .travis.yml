@@ -1,2 +1,5 @@
 language: r 
 cache: packages
+notifications:
+	on_success: never
+	on_failure: never

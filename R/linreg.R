@@ -1,15 +1,16 @@
 #'@exportClass linreg
 #'@export linreg
-
+#formula<-Petal.Length ~ Sepal.Width + Sepal.Length
 
 linreg<-setRefClass("linreg", 
-                    fields=list(formula="formula",data="data.frame",beta_hat="numeric",res="numeric",fitted="numeric"),
+                    fields=list(formula="formula",data="data.frame",beta_hat="numeric",res="numeric",fitted="numeric",s="character"),
                     methods=list(
                       initialize = function(formula,data){ # this function is using $new <3
                         formula<<-formula
+                        name_of_data_input<<-deparse(substitute(data)) 
                         data<<-data
-                        dependent_variable_name<-all.vars(formula)[1]
                         
+                        dependent_variable_name<-all.vars(formula)[1]
                         Y<-data[[dependent_variable_name]] # vector of dependent variable
                         X<-model.matrix(formula,data) # matric of independent variables
                         qr<-qr(X)
@@ -60,8 +61,16 @@ linreg<-setRefClass("linreg",
                         
                       },
                       print=function(){
-                        
+                      cat(paste("linreg(formula =",format(formula)," data=",name_of_data_input,")\n"))
+                      cat(paste(" ",names(beta_hat)))
+                      
+                      
                       }
                       
                     ))
 
+
+pop<-function(data)
+{
+  return("data")
+}
