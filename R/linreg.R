@@ -24,7 +24,7 @@ linreg<-function(formula,data){
   
   t_values <- beta / sqrt(reg_var)
   
-  #p-value ????'
+  #p-value ????
   
   p_value <- pt(beta,df)
   
