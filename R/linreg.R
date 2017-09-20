@@ -6,7 +6,7 @@ linreg<-function(formula,data){
   # Petal.Lenght <- data$Petal.Length
   # Sepal.Width  <- data$Sepal.Width
   # Sepal.Length <- data$Sepal.Length
-  #ex : formula<-data$Petal.Length ~ data$Sepal.Width + data$Sepal.Length
+  #ex : formula<-Petal.Length ~ data$Sepal.Width + data$Sepal.Length
   
   
   dependent_variable_name<-all.vars(formula)[1]
@@ -46,11 +46,20 @@ linreg<-function(formula,data){
   #f<-Petal.Length ~ Sepal.Width + Sepal.Length
   return(X)
   
-  #first graph
-  plot(fitted,res, ylab="Residuals",xlab="Fitted values of lm", main="Residuals vs Fitted")
+  #first graph ---> missing red line
   
-  stand_res <- abs((res-mean(res))/sqrt(var(res)))
-  ggplot(fitted, stand_res)
+  plot(fitted,res, ylabel="Residuals",xlabel="Fitted values of lm", main="Residuals vs Fitted")
+  abline(beta_hat)
+  
+  ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1)+geom_abline(fitted,beta_hat)+scatter.smooth(fitted,res)
+  
+  
+ 
+  
+  #second graph -----> missing red line
+  
+  stand_res <- sqrt(abs((res-mean(res))/sqrt(var(res))))
+  plot(fitted, stand_res, ylab=expression(sqrt(abs("Standardized residuals"))),xlab="Fitted values of lm", main="Scale-Location")
   
 
   ## RC class tryout 
@@ -59,3 +68,4 @@ linreg<-function(formula,data){
   return(beta)
 
 }
+
