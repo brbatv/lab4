@@ -9,7 +9,7 @@ linreg<-function(formula,data){
   # Petal.Lenght <- data$Petal.Length
   # Sepal.Width  <- data$Sepal.Width
   # Sepal.Length <- data$Sepal.Length
-  #ex : formula<-Petal.Length ~ data$Sepal.Width + data$Sepal.Length
+  #ex : formula<-Petal.Length ~ Sepal.Width + Sepal.Length
   
   
   dependent_variable_name<-all.vars(formula)[1]
@@ -46,10 +46,8 @@ linreg<-function(formula,data){
   plot(fitted,res, ylabel="Residuals",xlabel="Fitted values of lm", main="Residuals vs Fitted")
   abline(beta_hat)
   
-  ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1)+geom_abline(fitted,beta_hat)+scatter.smooth(fitted,res)
-  
-  
- 
+  ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1)
+  #+smooth.spline(fitted,res)
   
   #second graph -----> missing red line
   
@@ -68,29 +66,30 @@ linreg<-setRefClass("linreg",
                         dependent_variable_name<-all.vars(formula)[1]
                         Y<-data[[dependent_variable_name]] # vector of dependent variable
                         X<-model.matrix(formula,data) # matric of independent variables
-                        qr<-qr(X)
-                        beta_hat<<-qr.coef(qr,Y) # regression coefficients
-                        fitted<<-qr.fitted(qr,Y) #the fitted values
-                        res<<-qr.resid(qr,Y) # residuals
                         
-                        #degrees of freedom
+                        ## calculation using QR decomposition
+                        qr<-qr(X)
+                        beta_hat<-qr.coef(qr,Y)
+                        fitted<-qr.fitted(qr,Y)
+                        res<-qr.resid(qr,Y)
+                        
+                        #degree of freedom
                         n <- dim(data)[1]
                         p <- dim(data)[2]-2
                         df<- n-p
                         
-                        res_var <- (t(res) %*% res)/df # residual variance
+                        #residual variance
+                        res_var <- (t(res) %*% res)/df
                         
                         #variance of the regression coefficients
-                        reg_var <- (as.numeric(res_var) * solve((t(X) %*% X)))
-                        reg_var<-diag(reg_var)
+                        reg_var <- diag(as.numeric(res_var) * solve((t(X) %*% X)))
                         
                         #t-values for each coefficient
-                        t_values <- beta_hat / sqrt(diag(reg_var))
+                        t_values <- beta_hat / sqrt(reg_var)
                         
-                        #p-value ????
-                        p_value <- pt(fitted,df)
-                        
-                        
+                        #p-value for each coefficient
+                        p_value<-2*pt(abs(t_values),df,lower.tail = FALSE)
+                    
                       },
                       resid = function(){
                         
@@ -100,7 +99,7 @@ linreg<-setRefClass("linreg",
                         return(fitted) #done
                         
                       },
-                      coef=function(){
+                      coef=function(){ 
                         return(beta_hat) #done
                         
                       },
@@ -108,9 +107,10 @@ linreg<-setRefClass("linreg",
                         
                       },
                       plot=function(){
-                        #first graph
-                        plot(fitted,res, ylab="Residuals",xlab="Fitted values of lm", main="Residuals vs Fitted")
+                        #first graph ---> working on the red line
+                        ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1)
                         
+                        #second graph --> working on it
                         stand_res <- abs((res-mean(res))/sqrt(var(res)))
                         ggplot(fitted, stand_res)
                         
