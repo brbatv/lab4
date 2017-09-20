@@ -1,9 +1,15 @@
+#'A RC class for multiple linear regression
+#'
+#'@field formula The formula object containing depedent and independent variables
+#'@field data A data frame object to apply the multiple linear regression to
+#'
+#'
 #'@exportClass linreg
 #'@export linreg
 #formula<-Petal.Length ~ Sepal.Width + Sepal.Length
 
 linreg<-setRefClass("linreg", 
-                    fields=list(formula="formula",data="data.frame",beta_hat="numeric",res="numeric",fitted="numeric",s="character"),
+                    fields=list(formula="formula",data="data.frame",beta_hat="numeric",res="numeric",fitted="numeric",name_of_data_input="character"),
                     methods=list(
                       initialize = function(formula,data){ # this function is using $new <3
                         formula<<-formula
@@ -38,18 +44,21 @@ linreg<-setRefClass("linreg",
                         
                       },
                       resid = function(){
-                        
+                        "Returns residual vector"
                         return(res) #done
                       },
                       pred = function(){
+                        "Returns fitted values"
                         return(fitted) #done
                         
                       },
                       coef=function(){
+                        "Returns linear regression coefficients"
                         return(beta_hat) #done
                         
                       },
                       summary=function(){
+                        "Returns a summary of the linear regression"
                         
                       },
                       plot=function(){
@@ -61,8 +70,12 @@ linreg<-setRefClass("linreg",
                         
                       },
                       print=function(){
-                      cat(paste("linreg(formula =",format(formula)," data=",name_of_data_input,")\n"))
-                      cat(paste(" ",names(beta_hat)))
+                        "Prints the input and the coefficients in a user-friedly way"
+                      cat("Call: \n ")
+                      cat(paste0("linreg(formula = ",format(formula)," data = ",name_of_data_input,")\n\n"))
+                      #cat(paste0(" ",names(beta_hat)))
+                      cat("Coefficients: \n")
+                      beta_hat
                       
                       
                       }

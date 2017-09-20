@@ -40,7 +40,7 @@ test_that("print() method works", {
   
   
   
-  expect_output(linreg_mod$print(),"linreg(formula = Petal.Length ~ Sepal.Width + Sepal.Length, data = iris)")  #ERR
+  expect_output(linreg_mod$print(),"linreg\\(formula = Petal\\.Length ~ Sepal\\.Width \\+ Sepal\\.Length, data = iris\\)")  #ERR
   
   expect_output(linreg_mod$print()," (Intercept)   Sepal.Width  Sepal.Length ")  #ERR
   
