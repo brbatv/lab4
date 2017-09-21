@@ -8,8 +8,11 @@
 #'@export linreg
 #formula<-Petal.Length ~ Sepal.Width + Sepal.Length
 #a<-linreg$new(formula=Petal.Length ~ Sepal.Width + Sepal.Length,data=iris)
+#a<-linreg$new(formula=Petal.Length ~ Species,data=iris)
+#plot(lm(iris$Petal.Length ~ iris$Sepal.Width + iris$Sepal.Length))
 
 
+a<-linreg$new(formula=Petal.Length ~ Sepal.Width + Sepal.Length,data=iris)
 linreg<-setRefClass("linreg",
                     fields=list(formula="formula",data="data.frame",beta_hat="numeric",res="numeric",fitted="numeric",name_of_data_input="character"),
                     methods=list(
@@ -63,15 +66,16 @@ linreg<-setRefClass("linreg",
                         
                       },
                       plot=function(){
-                        #first graph ---> missing red line
-                        ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1)
                         
-                        #second graph -----> missing red line
+                        phras<- paste("ln(",format(formula),")")
+                        #first graph
+                        theme_update(plot.title = element_text(hjust = 0.5))
+                        ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1,size=3)+xlab(paste("Fitted values", phras, sep = "\n"))+ ylab("Residuals")+ ggtitle("Residuals vs Fitted") +geom_hline(yintercept=0, linetype="dashed")+geom_smooth(span = 1.5,colour="red",method="loess",se=FALSE)
                         
-                        #stand_res <- sqrt(abs((res-mean(res))/sqrt(var(res))))
-                        #plot(fitted, stand_res, ylab=expression(sqrt(abs("Standardized residuals"))),xlab="Fitted values of lm", main="Scale-Location")
-                        
-                        
+                        #second graph
+                        stand_res <- sqrt(abs((res-mean(res))/sqrt(var(res))))
+                        ggplot(data.frame(fitted,stand_res),aes(y=stand_res,x=fitted))+geom_point(shape=1)+xlab(paste("Fitted values",phras, sep = "\n"))+ ylab(expression(sqrt(abs("Standardized residuals")))) + ggtitle("Scale-Location")+geom_smooth(span = 1.5,colour="red",method="loess",se=FALSE)
+                          
                       },
                       print=function(){
                         "Prints the input and the coefficients in a user-friedly way"
@@ -81,7 +85,7 @@ linreg<-setRefClass("linreg",
                         cat("Coefficients: \n")
                         beta_hat
                         
-                        
                       }
                       
                     ))
+
