@@ -11,7 +11,7 @@
 
 
 linreg<-setRefClass("linreg", 
-                    fields=list(formula="formula",data="data.frame",beta_hat="numeric",res="numeric",fitted="numeric",name_of_data_input="character"),
+                    fields=list(formula="formula",data="data.frame",beta_hat="numeric",res="numeric",fitted="numeric",name_of_data_input="character",df="numeric"),
                     methods=list(
                       initialize = function(formula,data){ # this function is using $new <3
                         formula<<-formula
@@ -29,7 +29,7 @@ linreg<-setRefClass("linreg",
                         #degrees of freedom
                         n <- dim(data)[1]
                         p <- dim(data)[2]-2
-                        df<- n-p
+                        df<<- n-p
                         
                         res_var <- (t(res) %*% res)/df # residual variance
                         
@@ -60,6 +60,12 @@ linreg<-setRefClass("linreg",
                       },
                       summary=function(){
                         "Returns a summary of the linear regression"
+                        cat("Coefficients: \n")
+                        cat(" ")
+                        cat(names(beta_hat))
+                        cat(" ")
+                        cat(sep="\n")
+                        cat(sep="      ",beta_hat)
                         
                       },
                       plot=function(){
@@ -84,8 +90,6 @@ linreg<-setRefClass("linreg",
                       cat(" ")
                       cat(sep="\n")
                       cat(sep="      ",beta_hat)
-                      
-                      
                       }
                       
                     ))
