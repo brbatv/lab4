@@ -75,21 +75,18 @@ linreg<-setRefClass("linreg",
                       },
                       print=function(){
                         "Prints the input and the coefficients in a user-friedly way"
-                      cat("Call: \n ")
-                      cat(paste0("linreg(formula = ",format(formula)," data = ",name_of_data_input,")\n\n"))
-                      #cat(paste0(" ",names(beta_hat)))
+                      cat("Call: \n")
+                      cat(paste0("linreg(formula = ",format(formula),", data = ",name_of_data_input,")\n\n"))
+                      
                       cat("Coefficients: \n")
-                      beta_hat
+                      cat(" ")
+                      cat(names(beta_hat))
+                      cat(" ")
+                      cat(sep="\n")
+                      cat(sep="      ",beta_hat)
                       
                       
                       }
                       
                     ))
-
-
-
-pop<-function(data)
-{
-  return("data")
-}
 
