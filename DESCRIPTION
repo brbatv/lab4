@@ -9,8 +9,11 @@ Authors@R: c(
 Author: Barakat Bruno [aut, cre],
   De Biase Alessia [aut]
 Maintainer: Bruno Barakat <barakatbruno@gmail.com>
-Description: None yet bro i love pancakes
+Description: Compute linear regression when a set of observations and the dependent and indipendent variables are given.
 Depends: R(>= 2.10) 
 License: GPL 
 RoxygenNote: 6.0.1
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
