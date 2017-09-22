@@ -1,0 +1,138 @@
+---
+title: Linear Regression in R 
+author: Alessia De Biase and Bruno Barakat
+package: lab4ab
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `lab4ab` package provides the main function to compute a linear regression when a set of data and the variables to investigate are given. 
+Compared to the classic linear regression function (`lm()`) `linreg()` helps to calculate all the most significative elements of a linear regression in just one step just giving the observations (contained in a dataset) and the formula. `lab4ab` also provides a plotting function and a summary function just as `lm()` does.
+
+## Linear regression function: `linreg()`
+
+`linreg(data, formula)` needs two arguments:
+
+- *formula* : the linear regression formula the user wants to compute, where on the left is the dependent variable and on the right all the indipendent variables (for example: `Petal.Length ~ Sepal.Width + Sepal.Length`)
+- *data* : a dataframe containing all the features (one for each column);
+
+Applying the function to those objects the dependent variable is stored in a vector *Y* and the independent variables in a matrix *X*. At the same time all the following statistics are calculated:
+
+1. **Regression coefficients** (`beta_hat`) : $\hat{\beta}= (X^TX)^{-1}X^Ty$
+
+2. **The fitted values** (`fitted`) : $\hat{y}= X\hat{\beta}$
+
+3. **The residuals** (`res`) : $\hat{e}= y-X\hat{\beta}$
+
+4. **The degree of freedom** (`df`) : $df=n-p$ , where $n$ is the number of observations and $p$ is the number of parameters in the model
+
+5. **The residual variance** (`res_var`) : $\hat{\sigma}^2=\frac{e^Te}{df}$
+
+6. **The variance of the regression coefficients** (`reg_var`) : $\hat{Var}(\hat{\beta})=\hat{\sigma}^2(X^TX)^{-1}) $
+
+7. **The t-values for each coefficient** (`t_value`) :$t_\beta=\frac{\hat{\beta}}{\sqrt{Var(\hat{\beta})}}$
+
+8. **The p-values for each coefficient** (`p_value`) : $P(|>t|)$ the probability of each coefficient to be equal to 0
+
+To access to one of the previews statistics it may be used *$* as it follows:
+
+```{r}
+data <- iris
+formula <- Petal.Length ~ Sepal.Width + Sepal.Length
+
+#my_linear_reg <- linreg(formula, data)
+
+#residuals <- my_linear_reg$res
+
+#residuals 
+
+#TAKE OFF THE COMMENT SIGN WHEN IT WORKS IN A PROPER WAY
+```
+
+The package provides also three other functions which return some of the statistics showed before: 
+
+- `resid()`: which returns the vector of residuals (point 3.)
+- `pred()` : which returns the predicted values (point 2.)
+- `coef()` : which returns the regression coefficients with their names (point 1.)
+
+
+## The printing function:  `print()`
+
+The `print()` shows exactly the same data of `lm()` function: it provides the coefficients found in the linear regression and their names. 
+
+```{r}
+data <- iris
+formula <- Petal.Length ~ Sepal.Width + Sepal.Length
+
+#my_linear_reg <- linreg(formula, data)
+
+#print(my_linear_reg)
+
+#TAKE OFF THE COMMENT SIGN WHEN IT WORKS IN A PROPER WAY
+```
+
+## Plotting
+
+In `lab4ab` package there are two graphs: one representing the residuals vs the fitted values, the second one a scaled version of the first one, the residuals have been standardized by the formula: $$\sqrt{ \frac{|mean(res)-res|}{\sqrt{{Var(res)}}}}$$ .
+The red line represents the trend of the observations in the graphs. The smooth has been realized with a local polynomial regression fitting with a span (parameter which controls the degree of smoothing) of 1.5. It looks very close to the one obtained by `plot(lm())`. The function `plot()` plots using *ggplot2* package that has to be installed before using `lab4ab`. 
+
+```{r, fig.show='hold'}
+
+#plot(my_linear_reg)
+#plot(data$Petal.Length ~ data$Sepal.Width + data$Sepal.Length)
+
+```
+
+## `summary()`
+
+Last function in the package is `summary()`. It's aim is to return a similar printout as printed for `lm()`. The statistics of this output are: 
+
+```{r}
+#summary(my_linear_reg)
+
+#TAKE OFF THE COMMENT SIGN WHEN IT WORKS IN A PROPER WAY
+```
+
+## prendi come esempio per i plot:
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold',fig.cal="Residuals vs Fitted values"}
+plot(1:10)
+plot(10:1)
+```
+
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## Examples
+
+```{r}
+data <- iris[1:10,]
+
+formula <- Petal.Length ~ Sepal.Width + Sepal.Length
+
+#my_linear_reg <- linreg(formula, data)
+
+```
+
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(iris,10))
+```
+
+```{r, echo=FALSE, results='asis'}
+#knitr::kable(head(coef(my_linear_reg)))
+```
+
+```{r}
+
+```
+
