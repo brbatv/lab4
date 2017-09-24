@@ -27,8 +27,6 @@ A RC class for multiple linear regression
 
 \item{\code{resid()}}{Returns residual vector}
 
-
 \item{\code{summary()}}{Returns a summary of the linear regression}
-
 }}
 
