@@ -13,7 +13,11 @@ Description: Compute linear regression when a set of observations and the depend
 Depends: R(>= 2.10) 
 License: GPL 
 RoxygenNote: 6.0.1
+Imports:
+    ggplot2
 Suggests: testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    magick,
+    grid
 VignetteBuilder: knitr
