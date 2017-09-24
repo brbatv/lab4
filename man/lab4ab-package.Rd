@@ -8,7 +8,7 @@
 \description{
 \packageDescription{lab4ab}
 
-`linreg()` helps to calculate all the most significative elements of a linear regression in just one step just giving the observations (contained in a dataset) and the formula.
+`linreg$new()` helps to calculate all the most significative elements of a linear regression in just one step just giving the observations (contained in a dataset) and the formula.
 
 The package also provides a printing method ($print()), a summary ($summary()) and two plots ($plot()).
 
@@ -38,7 +38,7 @@ data <- iris
 
 formula <- Petal.Length ~ Sepal.Width + Sepal.Length
 
-my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg$new(formula, data)
 
 my_linear_reg$print()
 my_linear_reg$plot()

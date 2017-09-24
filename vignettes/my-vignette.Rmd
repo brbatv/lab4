@@ -14,7 +14,7 @@ Compared to the classic linear regression function (`lm()`) `linreg()` helps to 
 
 ## Linear regression function: `linreg()`
 
-`linreg(data, formula)` needs two arguments:
+`linreg$new(data, formula)` needs two arguments:
 
 - *formula* : the linear regression formula the user wants to compute, where on the left is the dependent variable and on the right all the indipendent variables (for example: `Petal.Length ~ Sepal.Width + Sepal.Length`)
 - *data* : a dataframe containing all the features (one for each column);
@@ -43,7 +43,7 @@ Applying the function to those objects the dependent variable is stored in a vec
 data <- iris
 formula <- Petal.Length ~ Sepal.Width + Sepal.Length
 
-my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg$new(formula, data)
 
 residuals <- my_linear_reg$res
 
@@ -68,7 +68,7 @@ data <- iris
 
 formula <- Petal.Length ~ Sepal.Width + Sepal.Length
 
-my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg$new(formula, data)
 
 my_linear_reg$print()
 
@@ -101,7 +101,7 @@ data <- iris
 
 formula <- Petal.Length ~ Species
 
-my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg$new(formula, data)
 
 ```
 

@@ -2,7 +2,7 @@
 data <- iris
 formula <- Petal.Length ~ Sepal.Width + Sepal.Length
 
-my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg$new(formula, data)
 
 residuals <- my_linear_reg$res
 
@@ -14,7 +14,7 @@ data <- iris
 
 formula <- Petal.Length ~ Sepal.Width + Sepal.Length
 
-my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg$new(formula, data)
 
 my_linear_reg$print()
 
@@ -33,7 +33,7 @@ data <- iris
 
 formula <- Petal.Length ~ Species
 
-my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg$new(formula, data)
 
 
 ## ---- echo=FALSE, results='asis'-----------------------------------------
