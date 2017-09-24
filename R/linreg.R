@@ -93,13 +93,13 @@ linreg<-setRefClass("linreg",
                         #first graph
                         x_max<-max(fitted)
                         y_max<-max(res)
-                        first<-ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1,size=3)+xlab(paste("Fitted values", phras, sep = "\n"))+ ylab("Residuals")+ ggtitle("Residuals vs Fitted") +geom_hline(yintercept=0, linetype="dashed")+geom_smooth(span = 1.5,colour="turquoise4",method="loess",se=FALSE)+theme_LIU()+annotation_custom(g_pic, xmin=x_max-2, xmax=x_max-1, ymin=y_max-6, ymax=y_max-1)
+                        first<-ggplot(data.frame(fitted,res),aes(y=res,x=fitted))+geom_point(shape=1,size=3)+xlab(paste("Fitted values", phras, sep = "\n"))+ ylab("Residuals")+ ggtitle("Residuals vs Fitted") +geom_hline(yintercept=0, linetype="dashed")+geom_smooth(span = 1.5,colour="turquoise4",method="loess",se=FALSE)+theme_LIU()+annotation_custom(g_pic, xmin=(x_max-min(fitted))*0.1, xmax=((x_max-min(fitted))*0.1)+1.4, ymin=abs((y_max-min(res)))*0.77, ymax=y_max-.7)
 
                         #second graph : scale-location
                         stand_res <- sqrt(abs((res-mean(res))/sqrt(var(res))))
                         x_max<-max(fitted)
                         y_max<-max(stand_res)
-                        second<-ggplot(data.frame(fitted,stand_res),aes(y=stand_res,x=fitted))+geom_point(shape=1)+xlab(paste("Fitted values",phras, sep = "\n"))+ ylab(expression(sqrt(abs("Standardized residuals")))) + ggtitle("Scale-Location")+geom_smooth(span = 1.5,colour="turquoise4",method="loess",se=FALSE)+theme_LIU()+annotation_custom(g_pic, xmin=x_max-2, xmax=x_max-1, ymin=y_max-6, ymax=y_max-1)
+                        second<-ggplot(data.frame(fitted,stand_res),aes(y=stand_res,x=fitted))+geom_point(shape=1)+xlab(paste("Fitted values",phras, sep = "\n"))+ ylab(expression(sqrt(abs("Standardized residuals")))) + ggtitle("Scale-Location")+geom_smooth(span = 1.5,colour="turquoise4",method="loess",se=FALSE)+theme_LIU()+annotation_custom(g_pic, xmin=(x_max-min(fitted))*0.1, xmax=((x_max-min(fitted))*0.1)+1.4, ymin=(y_max-min(stand_res))*0.77, ymax=(y_max-min(stand_res)))
                         return(list(first,second)) # needed to show both graphs
                       },
                       print=function(){

@@ -37,102 +37,89 @@ Applying the function to those objects the dependent variable is stored in a vec
 
 8. **The p-values for each coefficient** (`p_value`) : $P(|>t|)$ the probability of each coefficient to be equal to 0
 
-To access to one of the previews statistics it may be used *$* as it follows:
+*linreg* is a class, all the calculations have been stored in it, so to access to one of the previews statistics it may be used *$* as it follows:
 
 ```{r}
 data <- iris
 formula <- Petal.Length ~ Sepal.Width + Sepal.Length
 
-#my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg(formula, data)
 
-#residuals <- my_linear_reg$res
+residuals <- my_linear_reg$res
 
-#residuals 
+residuals 
 
-#TAKE OFF THE COMMENT SIGN WHEN IT WORKS IN A PROPER WAY
 ```
 
-The package provides also three other functions which return some of the statistics showed before: 
 
-- `resid()`: which returns the vector of residuals (point 3.)
-- `pred()` : which returns the predicted values (point 2.)
-- `coef()` : which returns the regression coefficients with their names (point 1.)
+The package provides also three other methods which return some of the statistics showed before: 
+
+- `$resid()`: which returns the vector of residuals (point 3.)
+- `$pred()` : which returns the predicted values (point 2.)
+- `$coef()` : which returns the regression coefficients with their names (point 1.)
 
 
-## The printing function:  `print()`
+## The printing method:  `print()`
 
-The `print()` shows exactly the same data of `lm()` function: it provides the coefficients found in the linear regression and their names. 
+The `$print()` shows exactly the same data of `lm()` function: it provides the coefficients found in the linear regression and their names. 
 
 ```{r}
 data <- iris
+
 formula <- Petal.Length ~ Sepal.Width + Sepal.Length
 
-#my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg(formula, data)
 
-#print(my_linear_reg)
+my_linear_reg$print()
 
-#TAKE OFF THE COMMENT SIGN WHEN IT WORKS IN A PROPER WAY
 ```
 
 ## Plotting
 
-In `lab4ab` package there are two graphs: one representing the residuals vs the fitted values, the second one a scaled version of the first one, the residuals have been standardized by the formula: $$\sqrt{ \frac{|mean(res)-res|}{\sqrt{{Var(res)}}}}$$ .
-The red line represents the trend of the observations in the graphs. The smooth has been realized with a local polynomial regression fitting with a span (parameter which controls the degree of smoothing) of 1.5. It looks very close to the one obtained by `plot(lm())`. The function `plot()` plots using *ggplot2* package that has to be installed before using `lab4ab`. 
+In `lab4ab` package there is also a method which contains two graphs: one representing the residuals vs the fitted values, the second one a scaled version of the first one, the residuals have been standardized by the formula: $$\sqrt{ \frac{|mean(res)-res|}{\sqrt{{Var(res)}}}}$$ .
+The line represents the trend of the observations in the graphs. The smooth has been realized with a local polynomial regression fitting with a span (parameter which controls the degree of smoothing) of 1.5. It looks very close to the one obtained by `plot(lm())`. The methid `$plot()` plots, using *ggplot2*  package that has to be installed before using `lab4ab`. The graphs respect some of the graphical criteria of Linkoping University.
 
-```{r, fig.show='hold'}
-
-#plot(my_linear_reg)
-#plot(data$Petal.Length ~ data$Sepal.Width + data$Sepal.Length)
+```{r message=FALSE, fig.align="center",fig.height = 5, fig.width = 9}
+my_linear_reg$plot()
 
 ```
 
-## `summary()`
+## `$summary()`
 
-Last function in the package is `summary()`. It's aim is to return a similar printout as printed for `lm()`. The statistics of this output are: 
+Last method in the package is `summary()`. It's aim is to return a similar printout as printed for `lm()`. The statistics of this output are: 
 
-```{r}
-#summary(my_linear_reg)
+```{r message=FALSE}
 
-#TAKE OFF THE COMMENT SIGN WHEN IT WORKS IN A PROPER WAY
+my_linear_reg$summary()
+
 ```
-
-## prendi come esempio per i plot:
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold',fig.cal="Residuals vs Fitted values"}
-plot(1:10)
-plot(10:1)
-```
-
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
 
 ## Examples
 
 ```{r}
-data <- iris[1:10,]
+data <- iris
 
-formula <- Petal.Length ~ Sepal.Width + Sepal.Length
+formula <- Petal.Length ~ Species
 
-#my_linear_reg <- linreg(formula, data)
+my_linear_reg <- linreg(formula, data)
 
 ```
-
 
 ```{r, echo=FALSE, results='asis'}
 knitr::kable(head(iris,10))
 ```
-
-```{r, echo=FALSE, results='asis'}
-#knitr::kable(head(coef(my_linear_reg)))
-```
-
 ```{r}
 
+my_linear_reg$print()
+
 ```
+```{r}
+
+my_linear_reg$summary()
+
+```
+
+
+
+
 
